@@ -1,0 +1,14 @@
+version: "2"
+services:
+  syncthing:
+    container_name: syncthing
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8384:8384"
+      - "22000:22000"
+      - "21027:21027"
+    environment:
+      - SYNCTHING_USERID=1000
+    restart: always
