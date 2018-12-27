@@ -8,7 +8,7 @@ services:
     ports:
       - "8384:8384"
       - "22000:22000"
-      - "21027:21027"
+      - "21027:21027/udp"
     environment:
       - SYNCTHING_USERID=1000
     restart: always
