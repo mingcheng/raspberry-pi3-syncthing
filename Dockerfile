@@ -1,4 +1,4 @@
-FROM resin/raspberry-pi-alpine
+FROM resin/raspberry-pi-alpine:3.7
 LABEL maintainer "Ming Chen<mingcheng@outlook.com>" architecture="ARM32v7/armhf" version="0.14.52"
 
 ENV SYNCTHING_VERSION=0.14.54 \
@@ -10,8 +10,7 @@ ENV SYNCTHING_VERSION=0.14.54 \
 WORKDIR /
 
 # Prerequisites
-RUN apk update && \
-    apk upgrade 
+#RUN apk update && apk upgrade 
 
 RUN cd /tmp &&\
     apk -U add openssl gnupg && \
