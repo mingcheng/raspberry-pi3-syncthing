@@ -1,7 +1,7 @@
 FROM resin/raspberry-pi-alpine:3.7
-LABEL maintainer "Ming Chen<mingcheng@outlook.com>" architecture="ARM32v7/armhf" version="0.14.52"
+LABEL maintainer "Ming Chen<mingcheng@outlook.com>" architecture="ARM32v7/armhf" version="1.0.0"
 
-ENV SYNCTHING_VERSION=0.14.54 \
+ENV SYNCTHING_VERSION=1.0.0 \
     SYNCTHING_USERID=1000 \
     SYNCTHING_GROUPID=1000 \
     GOSU_VERSION=1.11 \
