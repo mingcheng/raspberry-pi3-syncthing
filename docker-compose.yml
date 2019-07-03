@@ -1,14 +1,51 @@
 version: "2"
 services:
-  syncthing:
-    container_name: syncthing
+  # syncthing:
+  #   container_name: syncthing
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8384:8384"
+  #     - "22000:22000"
+  #     - "21027:21027/udp"
+  #   environment:
+  #     - SYNCTHING_USERID=1000
+  #   restart: always
+  stdiscosrv:
+    container_name: syncthing_discosrv
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_discosrv
     ports:
-      - "8384:8384"
-      - "22000:22000"
-      - "21027:21027/udp"
-    environment:
-      - SYNCTHING_USERID=1000
-    restart: always
+      - "8443:8443"
+      - "9011:9011"
+    command:
+      - "-debug"
+      - "-metrics-listen=:9011"
+      - "-cert=/cert.pem"
+      - "-key=/key.pem"
+    volumes:
+      - ./key.pem:/key.pem:ro
+      - ./cert.pem:/cert.pem:ro
+    working_dir: /tmp
+    restart: unless-stopped
+
+  relaysrv:
+    container_name: syncthing_relaysrv
+    build:
+      context: .
+      dockerfile: Dockerfile_relaysrv
+    ports:
+      - "22067:22067"
+    command:
+      - "-debug"
+      - "-global-rate=2097152" # 2mb/s http://www.bejson.com/convert/filesize/
+      - "-pools="
+      - "-keys=/keys"
+    restart: unless-stopped
+    volumes:
+      - .:/keys:ro
+    working_dir: /tmp
+    depends_on:
+      - stdiscosrv
