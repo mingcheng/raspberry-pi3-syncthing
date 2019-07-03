@@ -29,6 +29,7 @@ services:
       - ./key.pem:/key.pem:ro
       - ./cert.pem:/cert.pem:ro
     working_dir: /tmp
+    user: "root"
     restart: unless-stopped
 
   relaysrv:
@@ -44,6 +45,7 @@ services:
       - "-pools="
       - "-keys=/keys"
     restart: unless-stopped
+    user: "root"
     volumes:
       - .:/keys:ro
     working_dir: /tmp
